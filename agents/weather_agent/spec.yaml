@@ -1,0 +1,37 @@
+kind: AgentService
+apiVersion: /v1
+
+identity:
+  uid: weather-agnet
+  name: weather_agent
+  namespace: public.info
+  version: "1.0.0"
+  owner: platform-core
+
+interface:
+  input: WeatherRequest
+  output: WeatherResult
+  protocols: [local, a2a]
+
+behavior:
+  summary: 查询指定城市的实时天气信息
+  tags: [weather, query]
+
+constraints:
+  pii: false
+  max_tokens: 2048
+
+metadata:
+  domains: [public-info]
+  suitability:
+    latency: low
+
+lifecycle:
+  stage: ga        # alpha | beta | ga | deprecated
+  deprecation:
+    sunset: null   # ISO8601 date or null
+
+runtime:
+  protocol: local    # local | a2a | http
+  # endpoint: https://agents.example.com/weather
+  # timeout_ms: 5000
